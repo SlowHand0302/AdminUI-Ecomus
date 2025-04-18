@@ -22,6 +22,7 @@ import { IoCloseOutline } from 'react-icons/io5';
 import { useProductColumns } from './ProductTableColDef';
 import { Product } from '@/models/product.model';
 import Link from 'next/link';
+import { ProductGroupSelect } from './ProductGroupSelect';
 
 interface DataViewProps {
     products: Product[];
@@ -65,9 +66,7 @@ const DataView = ({ products }: DataViewProps) => {
                     onChange={(event) => table.getColumn('name')?.setFilterValue(event.target.value)}
                     className="max-w-sm h-8"
                 />
-                <Button variant="outline" asChild>
-                    <Link href={'/product/create'}>Create New</Link>
-                </Button>
+                <ProductGroupSelect />
                 {columnFilters.length > 0 || Object.keys(columnVisibility).length > 0 ? (
                     <Button
                         variant="outline"

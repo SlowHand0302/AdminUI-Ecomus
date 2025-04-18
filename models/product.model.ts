@@ -7,7 +7,7 @@ export interface Product {
     description?: string;
     price: number;
 
-    gender?: string;
+    gender: string;
     currency: string; // Default in C# was "USD", here you should set it when creating the object
     stock: number;
 
