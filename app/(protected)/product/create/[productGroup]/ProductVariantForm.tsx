@@ -19,18 +19,23 @@ interface ProductVariantsFormProps {
     onSubmit: UseFieldArrayAppend<FormProductValues, 'variants'>; // Replace `any` with your form's type
 }
 
-const mockSizes = [
+export const mockSizes = [
     { id: 1, size: 'S' },
     { id: 2, size: 'M' },
     { id: 3, size: 'L' },
 ];
-const mockColors = [
+export const mockColors = [
     { id: 1, color: 'Red', rgb: '#FF0000' },
     { id: 2, color: 'Blue', rgb: '#0000FF' },
     { id: 3, color: 'Green', rgb: '#00FF00' },
 ];
 
-export default function ProductVariantsForm({ type = FormType.CREATE, open, onClose, onSubmit: handleAppend }: ProductVariantsFormProps) {
+export default function ProductVariantsForm({
+    type = FormType.CREATE,
+    open,
+    onClose,
+    onSubmit: handleAppend,
+}: ProductVariantsFormProps) {
     const form = useForm<FormVariantValues>({
         resolver: zodResolver(FormVariantSchema),
         defaultValues: {
@@ -45,8 +50,8 @@ export default function ProductVariantsForm({ type = FormType.CREATE, open, onCl
             colorId: Number(data.color),
         };
         handleAppend(transformed);
-        form.reset()
-        onClose()
+        form.reset();
+        onClose();
     }
 
     return (
@@ -116,8 +121,12 @@ export default function ProductVariantsForm({ type = FormType.CREATE, open, onCl
                                     <FormControl>
                                         <Input
                                             type="number"
+                                            min={0}
                                             {...field}
-                                            onChange={(e) => field.onChange(parseInt(e.target.value))}
+                                            onChange={(e) => {
+                                                const value = e.target.value;
+                                                field.onChange(value === '' ? '' : parseInt(value));
+                                            }}
                                         />
                                     </FormControl>
                                     <FormMessage />

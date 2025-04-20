@@ -1,10 +1,11 @@
 'use client';
 import { Button } from '@/components/ui/button';
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from '@/components/ui/table';
+import { FormProductValues } from '@/entities/FormProduct.schema';
 import { Trash2Icon } from 'lucide-react';
 import React from 'react';
 import { FieldArrayWithId, UseFieldArrayRemove } from 'react-hook-form';
-import { FormProductValues } from './page';
+import { mockSizes, mockColors } from './ProductVariantForm';
 
 export interface VariantTableProps {
     fields: FieldArrayWithId<FormProductValues, 'variants', 'id'>[]; // Replace `any` with your form's type
@@ -26,9 +27,11 @@ const VariantTable = ({ fields, remove }: VariantTableProps) => {
                 {fields.map((field, index) => {
                     return (
                         <TableRow key={index}>
-                            <TableCell className="font-medium">{field.sizeId}</TableCell>
-                            <TableCell>{field.colorId}</TableCell>
-                            <TableCell className="text-right">{1}</TableCell>
+                            <TableCell className="font-medium">
+                                {mockSizes.find((item) => item.id === field.sizeId)?.size}
+                            </TableCell>
+                            <TableCell>{mockColors.find(item => item.id === field.colorId)?.color}</TableCell>
+                            <TableCell className="text-right">{field.stock}</TableCell>
                             <TableCell className="flex justify-end gap-2">
                                 {/* <Button variant="outline" size={'icon'}>
                                     <Edit2 size={16} />

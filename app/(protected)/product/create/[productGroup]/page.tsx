@@ -20,18 +20,12 @@ import ProductVariantsForm from './ProductVariantForm';
 import { FormProductValues, FormProductSchema } from '@/entities/FormProduct.schema';
 import { ProductGroupSlugMap } from '@/constants/productGroup.constant';
 
-const mockGroupProduct = [
-    { id: 1, group: 'Jewelry' },
-    { id: 2, group: 'Clothings' },
-    { id: 3, group: 'Shoes' },
-];
-
 const page = () => {
-    const params = useParams<{productGroup: string}>();
+    const params = useParams<{ productGroup: string }>();
     const [productGroupID, setProductGroupID] = useState(ProductGroupSlugMap[params['productGroup']]);
     const [openModalVariants, setOpenModalVariants] = useState(false);
     const [openModalImage, setOpenModalImage] = useState(false);
-    
+
     const form = useForm<FormProductValues>({
         resolver: zodResolver(FormProductSchema),
         defaultValues: {
@@ -71,7 +65,7 @@ const page = () => {
         console.log(values);
         // Handle form submission (e.g., send to API)
     }
-
+    
     return (
         <>
             <main className="p-3 flex gap-3">
